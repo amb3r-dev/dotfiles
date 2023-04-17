@@ -26,7 +26,7 @@ read -p "Generate new Debian tarball for proot-distro? [y/N]: " answer
 
   # Make the tarball
   debootstrap --arch=arm64  bookworm $debian_tmp_rootfs
-  tar czvf $debian_tarball_location -C $debian_tmp_rootfs ${debian_tmp_rootfs}/*
+  cd $debian_tmp_rootfs && tar czvf $debian_tarball_location ./*
 
   # Get the default user's name
   read -p "Enter your desired username to be used during setup: " username
