@@ -1,0 +1,20 @@
+# [](#ff2106)
+
+#format = "[  ](#ff2106 bg:#510606)[](#510606) $all"
+format = " $all"
+
+[username]
+style_user = "#f2a400"
+disabled = false
+show_always = true
+format = "[$user]($style bold)"
+
+[character]
+format = " $symbol "
+success_symbol = "[>](#FFFFFF)"
+error_symbol = "[>](red)"
+
+[hostname]
+disabled = false
+ssh_only = false
+format = "@[$hostname](yellow bold):"
