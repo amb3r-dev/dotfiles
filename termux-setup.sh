@@ -20,9 +20,7 @@ read -p "Generate new Debian tarball for proot-distro? [y/N]: " answer
   rm -r $PREFIX/tmp/debian-rootfs
   rm $PREFIX/etc/proot-distro/debian-${debian_suite}-rootfs.tar.gz
   debootstrap --arch=arm64  bookworm $PREFIX/tmp/debian-rootfs
-  tar czf $PREFIX/etc/proot-distro/debian-${debian_suite}-rootfs.tar.gz $PREFIX/tmp/debian-rootfs/*
-  echo "Debian rootfs looks like this: "
-  tar tfz $PREFIX/etc/proot-distro/debian-${debian_suite}-rootfs.tar.gz
+  tar czvf $PREFIX/etc/proot-distro/debian-${debian_suite}-rootfs.tar.gz -C $PREFIX/tmp/debian-rootfs $PREFIX/tmp/debian-rootfs/*
   read -p "Enter your desired username to be used during setup: " username
 }
 
