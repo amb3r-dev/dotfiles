@@ -15,11 +15,13 @@ packages=(
 
 pkg install ${packages[@]}
 
-read -p "Generate new Debian tarball for proot-distro? [y/N]" username
+read -p "Generate new Debian tarball for proot-distro? [y/N]: " answer
 [[ $answer =~ ^(Y|y)$ ]] && {
   rm -r $PREFIX/tmp/debian-rootfs
   rm $PREFIX/etc/proot-distro/debian-${debian_suite}-rootfs.tar.gz
-  debootstrap --make-tarball=$PREFIX/etc/proot-distro/debian-${debian_suite}-rootfs.tar.gz bookworm $PREFIX/tmp/debian-rootfs
+  debootstrap --arch=arm64 --make-tarball=$PREFIX/etc/proot-distro/debian-${debian_suite}-rootfs.tar.gz bookworm $PREFIX/tmp/debian-rootfs
+  echo "Debian rootfs looks like this: "
+  tar tfz $PREFIX/etc/proot-distro/debian-${debian_suite}-rootfs.tar.gz
   read -p "Enter your desired username to be used during setup: " username
 }
 
