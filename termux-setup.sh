@@ -43,7 +43,9 @@ TARBALL_SHA256['aarch64']="$(sha256sum $debian_tarball_location | awk '{ print $
 distro_setup() {
   # Needed for some reason
   run_proot_cmd apt reinstall passwd
-  run_proot_cmd useradd -m $username -G sudo
+  run_proot_cmd useradd -m $username
+  run_proot_cmd apt install sudo
+  run_proot_cmd usermod -g sudo -p password $username
 }
 EOF
 }
