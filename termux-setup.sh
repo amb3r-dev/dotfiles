@@ -19,7 +19,8 @@ pkg install ${packages[@]}
 debian_tarball_location=$PREFIX/etc/proot-distro/debian-${debian_suite}-rootfs.tar.gz
 debian_tmp_rootfs=$PREFIX/tmp/debian-rootfs
 
-read -p "Generate new Debian tarball for proot-distro? [y/N]: " answer
+# Create the Debian tarball
+read -p "Generate new Debian ${debian_suite^} tarball for proot-distro? [y/N]: " answer
 [[ $answer =~ ^(Y|y)$ ]] && {
   rm -r $debian_tmp_rootfs
   rm $debian_tarball_location
@@ -30,10 +31,12 @@ read -p "Generate new Debian tarball for proot-distro? [y/N]: " answer
 
   # Get the default user's name
   read -p "Enter your desired username to be used during setup: " username
+}
 
-  # Create the proot-distro plugin script
+# Create the proot-distro plugin script
+read -p "Generate new Debian ${debian_suite^} script for proot-distro? [y/N]: " answer
+[[ $answer =~ ^(Y|y)$ ]] && {
   cat << EOF > $PREFIX/etc/proot-distro/debian-${debian_suite}.sh
-
 DISTRO_NAME="Debian ${debian_suite^}"
 TARBALL_URL['aarch64']="file://$debian_tarball_location"
 TARBALL_SHA256['aarch64']="$(sha256sum $debian_tarball_location | awk '{ print $1 }')"
@@ -43,7 +46,5 @@ distro_setup() {
   run_proot_cmd apt update
   run_proot_cmd apt upgrade
 }
-
 EOF
 }
-
